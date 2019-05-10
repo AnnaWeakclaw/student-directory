@@ -27,11 +27,13 @@ def print_header
 end
 
 def print(students)
+  unless students.empty?
   index = 0
   while index < students.length
     puts "#{index + 1}. #{(students[index][:name]).center(30)} (#{students[index][:cohort]} cohort) HOBBY: #{students[index][:hobby]}"
     index += 1
   end
+end
 end
 
 def print_footer(students)
