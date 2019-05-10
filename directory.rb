@@ -2,17 +2,7 @@
 def interactive_menu
   loop do
     print_menu 
-    selection = gets.chomp
-    case selection
-    when "1"
-      @students = input_students
-    when "2"
-      
-    when "9"
-      exit # this will cause the program to terminate
-    else
-      puts "I don't know what you meant, try again"
-    end
+    process(gets.chomp)
   end
 end
 
@@ -21,12 +11,24 @@ def print_menu
    puts "1. Input the students"
    puts "2. Show the students"
    puts "9. Exit" # 9 because we'll be adding more items
-   # 2. read the input and save it into a variable
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "I don't know what you mean, try again"
+  end
 end
 
 def show_students
   print_header
-  print
+  print_student_list
   print_footer
 end
 def input_students
@@ -47,7 +49,7 @@ def print_header
   puts "---------------"
 end
 
-def print
+def print_student_list
   @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
