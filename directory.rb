@@ -1,3 +1,4 @@
+require 'csv'
 @students = []
 
 def interactive_menu
@@ -83,12 +84,10 @@ def save_students
 end
 
 def load_students(filename = "students.csv") 
-  File.open(filename, "r") do |file|
-  file.readlines.each do |line|
-    @name, @cohort = line.chomp.split(",")
+  CSV.foreach(filename) do |line| #=File.open(filename, "r") do |file|
+    @name, @cohort = line #=flie.each do |line| ... line.chomp.split(",")
     add_a_student
   end
-end
 end
 
 def try_load_students
