@@ -1,3 +1,4 @@
+puts File.read("directory.rb") # also $0
 require 'csv'
 @students = []
 
