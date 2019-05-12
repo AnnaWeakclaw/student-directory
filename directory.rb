@@ -44,11 +44,15 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #create empty array
-  name = STDIN.gets.chomp
-  while !name.empty?
-    @students << { name: name, cohort: :november }
+  @name = STDIN.gets.chomp
+  
+  while !@name.empty?
+    puts "Enter cohort"
+    @cohort = gets.chomp.to_sym
+    @cohort = "november" if @cohort.empty?
+    add_a_student
     puts "Now we have #{@students.count} students"
-    name = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
   end
   @students
 end
@@ -70,7 +74,7 @@ end
 
 def save_students
   #open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open("students.csv", "a") #a for append to file as "w" overwrites the file
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -81,8 +85,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << { name: name, cohort: cohort.to_sym }
+    @name, @cohort = line.chomp.split(",")
+    add_a_student
   end
   file.close
 end
@@ -98,5 +102,9 @@ else
   puts "Sorry, #{filename} does not exist."
   exit
 end
+end
+
+def add_a_student
+  @students << { name: @name, cohort: @cohort.to_sym }
 end
 interactive_menu
